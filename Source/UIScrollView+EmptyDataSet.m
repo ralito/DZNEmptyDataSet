@@ -864,6 +864,12 @@ NSString *dzn_implementationKey(id target, SEL selector)
     
     // If applicable, set the custom view's constraints
     if (_customView) {
+        NSLayoutConstraint *topConstraint = [self equallyRelatedConstraintWithView:self.contentView attribute:NSLayoutAttributeTop];
+        NSLayoutConstraint *bottomConstraint = [self equallyRelatedConstraintWithView:self.contentView attribute:NSLayoutAttributeBottom];
+        
+        [self addConstraint:topConstraint];
+        [self addConstraint:bottomConstraint];
+        
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[customView]|" options:0 metrics:nil views:@{@"customView":_customView}]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[customView]|" options:0 metrics:nil views:@{@"customView":_customView}]];
     }
